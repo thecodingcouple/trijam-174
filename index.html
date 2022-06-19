@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>What Doesn't Kill Me | Trijam #174</title>
+        <link href="styles/style.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <header>
+            <a href="https://github.com/thecodingcouple/trijam-174">What Doesn't Kill Me | Trijam #174</a>
+        </header>
+        <main>
+            <!-- Start Scene -->
+            <section id="start-scene" class="">
+                <div class="game-scene">
+                    <h1>What Doesn't Kill Me</h1>
+                    <p>
+                        You are a scientist conduting an antibiotic experiment on a bacteria.  Each round you will use antibiotics to weaken the bacteria with the objective of not killing it. 
+                        <br><br>
+                        If you kill the bacteria the game is over.  If you manage to weaken it just enough, the bacteria survives, stronger than ever for the next round.
+                    </p>
+                    <button id="start-button" class="game-state-button">Start Game</button>
+                </div>
+            </section>
+            <!-- Game Scene -->
+            <section id="play-scene" class="hidden">
+                <div class="game-scene">
+                    <section id="game-stats">
+                        <label>Time Remaining:  <span>00:30</span></label>
+                        <label>Bacteria Health: <span>09</span></label>
+                    </section>
+                    <section id="petri-dish">
+                        <section id="bacteria"></section>
+                    </section>
+                    <section id="legend">
+
+                    </section>
+                </div>
+            </section>
+            <!-- End Scene -->
+            <section id="end-scene" class="hidden">
+                <div class="game-scene">
+                    <button id="restart-button" class="game-state-button">Restart Game</button>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <a href="https://twitter.com/thecodingcouple">A game by Michael &amp; Ashley | @thecodingcouple</a>
+        </footer>
+        <script type="module" src="scripts/main.js"></script>
+    </body>
+</html>

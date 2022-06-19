@@ -13,7 +13,7 @@ Source code for our Trijam #174 entry.  The theme is "Game based on a quote."
 > *- Friedrich Nietzsche*
 
 
-Resistance is a math-based puzzle and memory game. Players assume the role of a scientist conduting an antibiotic experiment on a bacteria.  Each round players use antibiotics to weaken the bacteria with the objective of not killing it. 
+*What Doesn't Kill Me* is a math-based puzzle and memory game. Players assume the role of a scientist conduting an antibiotic experiment on a bacteria.  Each round players use antibiotics to weaken the bacteria with the objective of not killing it. 
 
 If players kill the bacteria the game is over.  If they manage to weaken it just enough, the bacteria survives, stronger than ever for the next round.
 
@@ -35,15 +35,15 @@ python3 -m http.server 8000
 
 * Vanilla JS
 * Visual Studio Code
-* [Color Hunt Palette](https://colorhunt.co/palette/1b243051557e816797d6d5a8)
+* [Color Hunt Palette](https://colorhunt.co/palette/06283d1363df47b5ffdff6ff)
 
 ## Third Party Assets
 
-* TBD
+* Run Away_looped.wav (megamusiccollection)
 
 ## Useful Resources
 
-* TBD
+* [Add border gradient with border radius](https://stackoverflow.com/a/51496341/263158)
 
 ## Ideas for future improvements
 
