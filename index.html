@@ -32,11 +32,24 @@
             <section id="play-scene" class="hidden">
                 <div class="game-scene">
                     <section id="game-stats">
-                        <label>Time Remaining:  <span>00:30</span></label>
-                        <label>Bacteria Health: <span>09</span></label>
+                        <div>
+                            <label>Time Remaining:  <span>00:30</span></label>
+                            <label>Bacteria Health: <span>09</span></label>
+                        </div>
+                        <div>
+                            <label class="align-right">Experiment <span>001</span></label>
+                            <section class="antibiotic-markers-container">
+                                <section class="antibiotic-marker"></section>
+                                <section class="antibiotic-marker"></section>
+                                <section class="antibiotic-marker antibiotic-marker--empty"></section>
+                            </section>
+                        </div>
                     </section>
                     <section id="petri-dish">
                         <section id="bacteria"></section>
+                        <section class="antibiotic antibiotic-a"></section>
+                        <section class="antibiotic antibiotic-b"></section>
+                        <section class="antibiotic antibiotic-c"></section>
                     </section>
                     <section id="legend">
 
