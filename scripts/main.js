@@ -36,21 +36,21 @@ function startGame() {
         bacterialHp: 15,
         round: 0,
         timeRemaining: 0,
+        attempts: 0,
+        maxAttempts: 4,
+        isGameOver: false,
         antibiotics: [
             {
                 name: 'antibiotic-a',
                 damage: 1,
-                count: 4
             },
             {
                 name: 'antibiotic-b',
                 damage: 2,
-                count: 4
             },
             {
                 name: 'antibiotic-c',
-                damage: 5,
-                count: 3
+                damage: 5
             }
         ]
     };
@@ -62,16 +62,31 @@ function startGame() {
 }
 
 function endGame() {
+    _gameState.isGameOver = true;
+
+    const playScene = document.getElementById('play-scene');
+    playScene.classList.add('hidden');
+
+    const endScene = document.getElementById('end-scene');
+    endScene.classList.remove('hidden');
 }
 
 function updateRound() {
     _gameState.round++;
+    _gameState.attempts = 0;
+
+    if(_gameState.round > 1) {
+        _gameState.bacterialMaxHp += Math.floor(_gameState.bacterialMaxHp * .25);
+        for(const anti of _gameState.antibiotics) {
+            anti.damage += Math.ceil(anti.damage * 0.1);
+        }
+    }
 
     // Gain HP
-    _gameState.bacterialMaxHp += _gameState.bacterialMaxHp - _gameState.bacterialHp;
     _gameState.bacterialHp = _gameState.bacterialMaxHp;
     const healthCounter = document.getElementById("health-counter");
     healthCounter.innerText = _gameState.bacterialHp;
+    healthCounter.parentElement.classList.remove("flashing-red");
 
     // Update round labels
     const elements = document.getElementsByClassName("round-counter");
@@ -82,11 +97,15 @@ function updateRound() {
     // Generate legend
     generateLegendItems();
 
+    // Generate attempt tracker
+    generateAttemptTracker();
+
     showRoundOverlay();
 }
 
 function generateLegendItems() {
     const legend = document.getElementById('legend');
+    legend.innerHTML = '';
 
     for(const antibiotic of _gameState.antibiotics) {
         const legendItem = document.createElement('div');
@@ -100,6 +119,19 @@ function generateLegendItems() {
 
         legendItem.append(antibioticSection, label);
         legend.appendChild(legendItem);
+    }
+}
+
+function generateAttemptTracker() {
+    const container = document.querySelector(".antibiotic-markers-container");
+    container.innerHTML = '';
+
+    for(let x = 0; x < _gameState.maxAttempts; x++) {
+        const tracker = document.createElement("section");
+        tracker.classList.add("antibiotic-marker", "antibiotic-marker--empty");
+        tracker.id = x + 1;
+
+        container.appendChild(tracker);
     }
 }
 
@@ -117,8 +149,16 @@ function startRound() {
     _gameState.timeRemaining = ROUND_TIME_IN_SECONDS;
     const timeCounter = document.getElementById('time-counter');
     timeCounter.innerText = _gameState.timeRemaining;
+    timeCounter.parentElement.classList.remove("flashing-red");
+
+    const round = _gameState.round;
 
     const interval = setInterval(() => {
+        // new round started before timer ran up
+        if(round != _gameState.round || _gameState.isGameOver) {
+            clearInterval(interval);
+        }
+
         if (_gameState.timeRemaining <= 0) {
             clearInterval(interval);
             endGame();
@@ -138,9 +178,21 @@ function onAntibioticClicked(event) {
         let antibiotic = _gameState.antibiotics.find(a => a.name === className);
         if(antibiotic) {
             _gameState.bacterialHp -= antibiotic.damage;
+            _gameState.attempts++;
 
             const healthCounter = document.getElementById('health-counter');
             healthCounter.innerText = _gameState.bacterialHp;
+
+            const attemptTracker = document.getElementById(_gameState.attempts);
+            if (attemptTracker) {
+                attemptTracker.classList.remove('antibiotic-marker--empty');
+            }
+
+            if(_gameState.bacterialHp < 0) {
+                endGame();
+            } else if(_gameState.attempts == _gameState.maxAttempts) {
+                updateRound();
+            } 
 
             if(_gameState.bacterialHp <= _gameState.bacterialMaxHp * 0.5) {
                 healthCounter.parentElement.classList.add("flashing-red");

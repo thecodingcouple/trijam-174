@@ -105,20 +105,29 @@ p {
 
 .antibiotic-a {
     background: radial-gradient(red, darkred 95%, transparent);
-    /*top: 50vmin;
-    left: 25vmin;*/
+}
+
+.antibiotic-a-pos {
+    top: 50vmin;
+    left: 25vmin;
 }
 
 .antibiotic-b {
     background: radial-gradient(lime, green 95%, transparent);
-    /*top: 10vmin;
-    left: 15vmin;*/
+}
+
+.antibiotic-b-pos {
+    top: 10vmin;
+    left: 15vmin;
 }
 
 .antibiotic-c {
     background: radial-gradient(blue, mediumblue 95%, transparent);
-    /*top: 35vmin;
-    left: 55vmin;*/
+}
+
+.antibiotic-c-pos {
+    top: 35vmin;
+    left: 55vmin;
 }
 
 .antibiotic-markers-container {
@@ -154,6 +163,8 @@ p {
 
 .legend-item > .antibiotic {
     position: relative;
+    left: none;
+    top: none;
 }
 
 .legend-item > label {
