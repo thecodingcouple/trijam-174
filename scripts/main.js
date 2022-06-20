@@ -24,9 +24,20 @@ function main() {
 function startGame() {
     const playScene = document.getElementById('play-scene');
     playScene.classList.remove('hidden');
+
+    showRoundOverlay();
 }
 
 function endGame() {
+}
+
+function showRoundOverlay() {
+    const overlay = document.getElementById("round-overlay");
+    overlay.classList.remove('hidden');
+
+    setTimeout(() => {
+        overlay.classList.add('hidden');
+    }, 3000);
 }
 
 /**

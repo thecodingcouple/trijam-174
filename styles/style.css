@@ -19,11 +19,21 @@ body {
     flex-direction: column;
 }
 
-h1 {
-    font-size: 4rem;
+h1, h2 {
     font-family: 'Covered By Your Grace';
     text-align: center;
+    font-size: 4rem;
+}
+
+h1 {
+    margin: 5vmin 0;
+    font-size: 4rem;
     text-shadow: 1px 1px var(--paleblue), 2px 2px var(--primary);
+}
+
+h2 {
+    color: white;
+    text-shadow: 2px 2px var(--primary);
 }
 
 header {
@@ -95,20 +105,20 @@ p {
 
 .antibiotic-a {
     background: radial-gradient(red, darkred 95%, transparent);
-    top: 50vmin;
-    left: 25vmin;
+    /*top: 50vmin;
+    left: 25vmin;*/
 }
 
 .antibiotic-b {
     background: radial-gradient(lime, green 95%, transparent);
-    top: 10vmin;
-    left: 15vmin;
+    /*top: 10vmin;
+    left: 15vmin;*/
 }
 
 .antibiotic-c {
     background: radial-gradient(blue, mediumblue 95%, transparent);
-    top: 35vmin;
-    left: 55vmin;
+    /*top: 35vmin;
+    left: 55vmin;*/
 }
 
 .antibiotic-markers-container {
@@ -129,10 +139,32 @@ p {
     background: linear-gradient(90deg, gray 49%, black 49%, black 51%, gray 51%);
 }
 
+.legend-item {
+    border-radius: 5px;
+    margin: 1vmin;
+    padding: 5px;
+    color: black;
+    background: white;
+    width: 12vmin;
+    height: 10vmin;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.legend-item > .antibiotic {
+    position: relative;
+}
+
+.legend-item > label {
+    text-align: right;
+    font-size: 3.25rem;
+    font-family: 'Covered By Your Grace';
+}
+
 #play-scene,
 .game-scene {
     height: 100%;
-    justify-content: space-between;
 }
 
 #game-stats {
@@ -150,8 +182,33 @@ p {
     flex-direction: column;
 }
 
+#play-scene {
+    position: relative;
+}
+
+#round-overlay {
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, .85);
+    width: 100%;
+    height: 100%;
+}
+
+#round-overlay > div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 #start-scene p {
-    margin-bottom: 70px;
+    margin-bottom: 5vmin;
+}
+
+#legend {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 /*
@@ -184,5 +241,9 @@ p {
     p,
     #game-stats {
         font-size: 1rem;
+    }
+
+    .legend-item > label {
+        font-size: 1.5rem;
     }
 }
