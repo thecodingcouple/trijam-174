@@ -25,8 +25,23 @@ function main() {
 
 function startGame() {
     _gameState = {
-        bacteriaMaxHealth: 15,
-        bacteriaCurrentHealth: 15
+        bacteriaMaxHp: 15,
+        bacteriaHp: 15,
+        round: 1,
+        antibiotics: [
+            {
+                name: 'a',
+                damage: 1
+            },
+            {
+                name: 'b',
+                damage: 2
+            },
+            {
+                name: 'c',
+                damage: 5
+            }
+        ]
     };
 
     const playScene = document.getElementById('play-scene');
