@@ -162,6 +162,10 @@ p {
     font-family: 'Covered By Your Grace';
 }
 
+.flashing-red {
+    animation: 750ms infinite alternate-reverse flashred; 
+}
+
 #play-scene,
 .game-scene {
     height: 100%;
@@ -235,6 +239,20 @@ p {
     position: absolute;
     top: 25vmin;
     left: 15vmin;
+}
+
+#time-counter::before {
+    content: '00:'
+}
+
+@keyframes flashred {
+    from {
+        color: black;
+    }
+
+    to {
+        color: red;
+    }
 }
 
 @media (max-width: 500px) {

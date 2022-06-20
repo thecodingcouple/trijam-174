@@ -44,6 +44,7 @@ python3 -m http.server 8000
 ## Useful Resources
 
 * [Add border gradient with border radius](https://stackoverflow.com/a/51496341/263158)
+* [Pad Start](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart)
 
 ## Ideas for future improvements
 

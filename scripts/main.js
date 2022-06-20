@@ -1,4 +1,5 @@
-_gameState = {};
+const ROUND_TIME_IN_SECONDS = 30;
+let _gameState = {};
 
 main();
 
@@ -21,25 +22,35 @@ function main() {
         
         startGame();
     });
+
+    document.addEventListener("click", (event) => {
+        if(event.target.classList.contains("antibiotic")) {
+            onAntibioticClicked(event);
+        }
+    });
 }
 
 function startGame() {
     _gameState = {
-        bacteriaMaxHp: 15,
-        bacteriaHp: 15,
-        round: 1,
+        bacterialMaxHp: 15,
+        bacterialHp: 15,
+        round: 0,
+        timeRemaining: 0,
         antibiotics: [
             {
-                name: 'a',
-                damage: 1
+                name: 'antibiotic-a',
+                damage: 1,
+                count: 4
             },
             {
-                name: 'b',
-                damage: 2
+                name: 'antibiotic-b',
+                damage: 2,
+                count: 4
             },
             {
-                name: 'c',
-                damage: 5
+                name: 'antibiotic-c',
+                damage: 5,
+                count: 3
             }
         ]
     };
@@ -47,10 +58,49 @@ function startGame() {
     const playScene = document.getElementById('play-scene');
     playScene.classList.remove('hidden');
 
-    showRoundOverlay();
+    updateRound();
 }
 
 function endGame() {
+}
+
+function updateRound() {
+    _gameState.round++;
+
+    // Gain HP
+    _gameState.bacterialMaxHp += _gameState.bacterialMaxHp - _gameState.bacterialHp;
+    _gameState.bacterialHp = _gameState.bacterialMaxHp;
+    const healthCounter = document.getElementById("health-counter");
+    healthCounter.innerText = _gameState.bacterialHp;
+
+    // Update round labels
+    const elements = document.getElementsByClassName("round-counter");
+    for(const element of elements) {
+        element.innerText = _gameState.round.toString().padStart(3, '0');
+    }
+
+    // Generate legend
+    generateLegendItems();
+
+    showRoundOverlay();
+}
+
+function generateLegendItems() {
+    const legend = document.getElementById('legend');
+
+    for(const antibiotic of _gameState.antibiotics) {
+        const legendItem = document.createElement('div');
+        legendItem.classList.add("legend-item");
+
+        const antibioticSection = document.createElement('section');
+        antibioticSection.classList.add("antibiotic", antibiotic.name);
+
+        const label = document.createElement("label");
+        label.innerText = `-${antibiotic.damage}`;
+
+        legendItem.append(antibioticSection, label);
+        legend.appendChild(legendItem);
+    }
 }
 
 function showRoundOverlay() {
@@ -59,7 +109,44 @@ function showRoundOverlay() {
 
     setTimeout(() => {
         overlay.classList.add('hidden');
+        startRound();
     }, 3000);
+}
+
+function startRound() {
+    _gameState.timeRemaining = ROUND_TIME_IN_SECONDS;
+    const timeCounter = document.getElementById('time-counter');
+    timeCounter.innerText = _gameState.timeRemaining;
+
+    const interval = setInterval(() => {
+        if (_gameState.timeRemaining <= 0) {
+            clearInterval(interval);
+            endGame();
+        } else {
+            _gameState.timeRemaining--;
+            timeCounter.innerText = _gameState.timeRemaining.toString().padStart(2, '0');
+
+            if(_gameState.timeRemaining == 10) {
+                timeCounter.parentElement.classList.add('flashing-red');
+            }
+        }
+    }, 1000);
+}
+
+function onAntibioticClicked(event) {
+    for(let className of event.target.classList) {
+        let antibiotic = _gameState.antibiotics.find(a => a.name === className);
+        if(antibiotic) {
+            _gameState.bacterialHp -= antibiotic.damage;
+
+            const healthCounter = document.getElementById('health-counter');
+            healthCounter.innerText = _gameState.bacterialHp;
+
+            if(_gameState.bacterialHp <= _gameState.bacterialMaxHp * 0.5) {
+                healthCounter.parentElement.classList.add("flashing-red");
+            }
+        }
+    }
 }
 
 /**
