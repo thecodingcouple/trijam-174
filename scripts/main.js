@@ -188,7 +188,7 @@ function onAntibioticClicked(event) {
                 attemptTracker.classList.remove('antibiotic-marker--empty');
             }
 
-            if(_gameState.bacterialHp < 0) {
+            if(_gameState.bacterialHp <= 0) {
                 endGame();
             } else if(_gameState.attempts == _gameState.maxAttempts) {
                 updateRound();
