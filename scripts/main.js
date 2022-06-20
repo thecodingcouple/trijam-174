@@ -1,3 +1,5 @@
+_gameState = {};
+
 main();
 
 function main() {
@@ -22,6 +24,11 @@ function main() {
 }
 
 function startGame() {
+    _gameState = {
+        bacteriaMaxHealth: 15,
+        bacteriaCurrentHealth: 15
+    };
+
     const playScene = document.getElementById('play-scene');
     playScene.classList.remove('hidden');
 
