@@ -17,6 +17,12 @@ Source code for our Trijam #174 entry.  The theme is "Game based on a quote."
 
 If players kill the bacteria the game is over.  If they manage to weaken it just enough, the bacteria survives, stronger than ever for the next round.
 
+### How to play
+
+Click on an antibiotic to weaken the bacteria. Each antibiotic has a different damage value. 
+
+Apply damage 4 times with the goal of not killing the bacteria to advance to the next round.
+
 ## Project Setup
 
 Run with local web server
