@@ -3,6 +3,9 @@ let _gameState = {};
 
 main();
 
+/**
+ * Main method
+ */
 function main() {
     const startButton = document.getElementById('start-button');
     startButton.addEventListener('click', () => {
@@ -30,6 +33,9 @@ function main() {
     });
 }
 
+/**
+ * Start new game
+ */
 function startGame() {
     _gameState = {
         bacterialMaxHp: 15,
@@ -43,14 +49,17 @@ function startGame() {
             {
                 name: 'antibiotic-a',
                 damage: 1,
+                count: 1,
             },
             {
                 name: 'antibiotic-b',
-                damage: 2,
+                damage: 3,
+                count: 2
             },
             {
                 name: 'antibiotic-c',
-                damage: 5
+                damage: 5,
+                count: 3
             }
         ]
     };
@@ -61,6 +70,9 @@ function startGame() {
     updateRound();
 }
 
+/**
+ * End game
+ */
 function endGame() {
     _gameState.isGameOver = true;
 
@@ -71,6 +83,9 @@ function endGame() {
     endScene.classList.remove('hidden');
 }
 
+/**
+ * Increase round
+ */
 function updateRound() {
     _gameState.round++;
     _gameState.attempts = 0;
@@ -78,7 +93,7 @@ function updateRound() {
     if(_gameState.round > 1) {
         _gameState.bacterialMaxHp += Math.floor(_gameState.bacterialMaxHp * .25);
         for(const anti of _gameState.antibiotics) {
-            anti.damage += Math.ceil(anti.damage * 0.1);
+            anti.damage += Math.ceil(anti.damage * 0.25);
         }
     }
 
@@ -100,9 +115,15 @@ function updateRound() {
     // Generate attempt tracker
     generateAttemptTracker();
 
+    // Generate antibiotics and Bacteria
+    generateAntibioticsAndBacteria();
+
     showRoundOverlay();
 }
 
+/**
+ * Create antibiotic damage legened
+ */
 function generateLegendItems() {
     const legend = document.getElementById('legend');
     legend.innerHTML = '';
@@ -122,6 +143,9 @@ function generateLegendItems() {
     }
 }
 
+/**
+ * Create antibiotic attempt trackers
+ */
 function generateAttemptTracker() {
     const container = document.querySelector(".antibiotic-markers-container");
     container.innerHTML = '';
@@ -135,6 +159,34 @@ function generateAttemptTracker() {
     }
 }
 
+/**
+ * Generate antibiotics 
+ */
+function generateAntibioticsAndBacteria() {
+    // Clear petri dish
+    const petriDish = document.getElementById("petri-dish");
+    petriDish.innerHTML = '';
+
+    // Create bacteria
+    const bacteria = document.createElement("section");
+    bacteria.id = "bacteria";
+    petriDish.appendChild(bacteria);
+
+    // Create antibiotics
+    const antibiotics = _gameState.antibiotics.flatMap(a => Array(a.count).fill(a.name));
+    shuffleArray(antibiotics);
+    
+    for(let antibioticType of antibiotics) {
+        const element = document.createElement("section");
+        element.classList.add("antibiotic", antibioticType, `${antibioticType}-pos`);
+
+        petriDish.appendChild(element);
+    }
+}
+
+/**
+ * Display round information
+ */
 function showRoundOverlay() {
     const overlay = document.getElementById("round-overlay");
     overlay.classList.remove('hidden');
@@ -145,6 +197,9 @@ function showRoundOverlay() {
     }, 3000);
 }
 
+/**
+ * Start new round of game
+ */
 function startRound() {
     _gameState.timeRemaining = ROUND_TIME_IN_SECONDS;
     const timeCounter = document.getElementById('time-counter');
@@ -173,10 +228,17 @@ function startRound() {
     }, 1000);
 }
 
+/**
+ * Add damage to bacteria based on which antibiotic was clicked
+ * @param {*} event 
+ */
 function onAntibioticClicked(event) {
     for(let className of event.target.classList) {
         let antibiotic = _gameState.antibiotics.find(a => a.name === className);
         if(antibiotic) {
+            // Destroy antibiotic
+            event.target.remove();
+
             _gameState.bacterialHp -= antibiotic.damage;
             _gameState.attempts++;
 
@@ -228,4 +290,16 @@ function onAntibioticClicked(event) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
+}
+
+/**
+ * Shuffle the contents of an array
+ * https://stackoverflow.com/a/12646864/263158
+ * @param {*} array 
+ */
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }

@@ -177,9 +177,16 @@ p {
     animation: 750ms infinite alternate-reverse flashred; 
 }
 
+#end-scene,
+#start-scene,
 #play-scene,
 .game-scene {
     height: 100%;
+}
+
+#start-scene .game-scene,
+#end-scene .game-scene {
+    justify-content: center;
 }
 
 #game-stats {
@@ -274,5 +281,13 @@ p {
 
     .legend-item > label {
         font-size: 1.5rem;
+    }
+    
+    .game-scene {
+        justify-content: center;
+    }
+
+    #petri-dish {
+        margin-top: 10%;
     }
 }
