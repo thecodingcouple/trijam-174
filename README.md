@@ -19,9 +19,8 @@ If players kill the bacteria the game is over.  If they manage to weaken it just
 
 ### How to play
 
-Click on an antibiotic to weaken the bacteria. Each antibiotic has a different damage value. 
-
-Apply damage 4 times with the goal of not killing the bacteria to advance to the next round.
+* Click on an antibiotic to weaken the bacteria. Each antibiotic has a different damage value. 
+* Apply damage 4 times with the goal of not killing the bacteria to advance to the next round.
 
 ## Project Setup
 
