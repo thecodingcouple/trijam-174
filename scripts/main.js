@@ -87,6 +87,7 @@ function replayRound() {
     playScene.classList.remove('hidden');
 
     _gameState.attempts = 0;
+    _gameState.isGameOver = false;
 
     // Reset HP
     _gameState.bacterialHp = _gameState.bacterialMaxHp;
