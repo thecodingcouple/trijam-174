@@ -82,6 +82,12 @@ p {
     background-color: var(--lightblue);
 }
 
+.game-state-secondary-button {
+    background: var(--lightblue);
+    border: 1px solid var(--primary);
+    color: black;
+}
+
 .hidden {
     display: none;
 }
@@ -107,27 +113,11 @@ p {
     background: radial-gradient(red, darkred 95%, transparent);
 }
 
-.antibiotic-a-pos {
-    top: 50vmin;
-    left: 25vmin;
-}
-
 .antibiotic-b {
     background: radial-gradient(lime, green 95%, transparent);
 }
-
-.antibiotic-b-pos {
-    top: 10vmin;
-    left: 15vmin;
-}
-
 .antibiotic-c {
     background: radial-gradient(blue, mediumblue 95%, transparent);
-}
-
-.antibiotic-c-pos {
-    top: 35vmin;
-    left: 55vmin;
 }
 
 .antibiotic-markers-container {
@@ -187,6 +177,11 @@ p {
 #start-scene .game-scene,
 #end-scene .game-scene {
     justify-content: center;
+}
+
+#end-scene button {
+    width: 185px;
+    margin-bottom: 10px;
 }
 
 #game-stats {
@@ -255,8 +250,8 @@ p {
     height: 16vmin;
     background: radial-gradient( purple, mediumpurple);
     position: absolute;
-    top: 25vmin;
-    left: 15vmin;
+    top: 42%;
+    left: 45%;
 }
 
 #time-counter::before {

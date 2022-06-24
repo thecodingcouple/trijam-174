@@ -26,6 +26,15 @@ function main() {
         startGame();
     });
 
+
+    const retryButton = document.getElementById('retry-button');
+    retryButton.addEventListener('click', () => {
+        const restartScene = document.getElementById('end-scene');
+        restartScene.classList.add('hidden');
+        
+        replayRound();
+    });
+
     document.addEventListener("click", (event) => {
         if(event.target.classList.contains("antibiotic")) {
             onAntibioticClicked(event);
@@ -68,6 +77,30 @@ function startGame() {
     playScene.classList.remove('hidden');
 
     updateRound();
+}
+
+/**
+ * Restart current round
+ */
+function replayRound() {
+    const playScene = document.getElementById('play-scene');
+    playScene.classList.remove('hidden');
+
+    _gameState.attempts = 0;
+
+    // Reset HP
+    _gameState.bacterialHp = _gameState.bacterialMaxHp;
+    const healthCounter = document.getElementById("health-counter");
+    healthCounter.innerText = _gameState.bacterialHp;
+    healthCounter.parentElement.classList.remove("flashing-red");
+
+    // Generate attempt tracker
+    generateAttemptTracker();
+
+    // Generate antibiotics and Bacteria
+    generateAntibioticsAndBacteria();
+
+    showRoundOverlay();
 }
 
 /**
@@ -175,10 +208,31 @@ function generateAntibioticsAndBacteria() {
     // Create antibiotics
     const antibiotics = _gameState.antibiotics.flatMap(a => Array(a.count).fill(a.name));
     shuffleArray(antibiotics);
+
+    let currentAngle = 0;
+    const rotationIncrement = 360 / antibiotics.length;
     
     for(let antibioticType of antibiotics) {
         const element = document.createElement("section");
-        element.classList.add("antibiotic", antibioticType, `${antibioticType}-pos`);
+        element.classList.add("antibiotic", antibioticType);
+        element.style.transform = `rotate(${currentAngle}deg)`;
+
+        let top = getRandomInt(15, 70);
+        let left = getRandomInt(15, 70);
+
+        // avoid overlapping center where bateria is located
+        if(top >= 40 && top <= 55) {
+            top -= 20;
+        }
+
+        if(left >= 40 && left <= 55) {
+            left -= 20;
+        }
+
+        element.style.top = `${top}%`;
+        element.style.left = `${left}%`;
+
+        currentAngle += rotationIncrement;
 
         petriDish.appendChild(element);
     }
