@@ -17,14 +17,16 @@ Source code for our Trijam #174 entry.  The theme is "Game based on a quote."
 
 If players kill the bacteria the game is over.  If they manage to weaken it just enough, the bacteria survives, stronger than ever for the next round.
 
-What Doesn't Kill Me [ranked 10 out of 33 entries](https://itch.io/jam/trijam-174/results).
-
-<img src="assets/results.png" maxwidth="800">
-
 ### How to play
 
 * Click on an antibiotic to weaken the bacteria. Each antibiotic has a different damage value. 
 * Apply damage 4 times with the goal of not killing the bacteria to advance to the next round.
+
+### Trijam #174 Results
+
+What Doesn't Kill Me [ranked 10 out of 33 entries](https://itch.io/jam/trijam-174/results).
+
+<img src="assets/results.png" maxwidth="800">
 
 ## Project Setup
 
